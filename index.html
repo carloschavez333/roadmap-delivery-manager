@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROADMAP — Seguimiento Delivery Manager 2026</title>
+  <style>
+    :root {
+      --green: #22c55e; --green-light: #dcfce7; --green-dark: #15803d;
+      --orange: #f97316; --orange-light: #fff7ed; --orange-dark: #c2410c;
+      --purple: #a855f7; --purple-light: #faf5ff; --purple-dark: #7e22ce;
+      --blue: #3b82f6; --blue-light: #eff6ff; --blue-dark: #1d4ed8;
+      --gray: #6b7280; --gray-light: #f9fafb; --gray-200: #e5e7eb;
+      --red: #ef4444; --red-light: #fef2f2;
+      --text: #111827; --text-muted: #6b7280;
+      --radius: 8px; --shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f3f4f6; color: var(--text); font-size: 14px; }
+    
+    header { background: linear-gradient(135deg, #1e3a5f 0%, #2d5986 100%); color: white; padding: 28px 32px 24px; }
+    header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    header p { opacity: .8; font-size: .95rem; }
+    .header-meta { display: flex; gap: 24px; margin-top: 14px; font-size: .85rem; opacity: .9; }
+    .header-meta span { background: rgba(255,255,255,.15); padding: 3px 10px; border-radius: 20px; }
+    
+    nav.client-nav { background: white; border-bottom: 1px solid var(--gray-200); padding: 10px 32px; display: flex; gap: 8px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
+    nav.client-nav a { text-decoration: none; color: var(--blue-dark); font-size: .82rem; padding: 4px 10px; border-radius: 20px; background: var(--blue-light); transition: all .15s; white-space: nowrap; }
+    nav.client-nav a:hover { background: var(--blue); color: white; }
+    
+    .main { max-width: 1400px; margin: 0 auto; padding: 24px 24px; }
+    
+    /* KPI cards */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .kpi-card { background: white; border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); border-top: 3px solid transparent; }
+    .kpi-card.blue { border-color: var(--blue); }
+    .kpi-card.green { border-color: var(--green); }
+    .kpi-card.orange { border-color: var(--orange); }
+    .kpi-card.purple { border-color: var(--purple); }
+    .kpi-card.gray { border-color: var(--gray); }
+    .kpi-value { font-size: 2rem; font-weight: 700; line-height: 1; }
+    .kpi-label { font-size: .8rem; color: var(--text-muted); margin-top: 4px; }
+    .kpi-card.blue .kpi-value { color: var(--blue); }
+    .kpi-card.green .kpi-value { color: var(--green-dark); }
+    .kpi-card.orange .kpi-value { color: var(--orange); }
+    .kpi-card.purple .kpi-value { color: var(--purple); }
+    
+    /* Section titles */
+    .section-title { font-size: 1.1rem; font-weight: 700; margin: 28px 0 14px; color: #1e3a5f; display: flex; align-items: center; gap: 8px; }
+    .section-title::after { content: ''; flex: 1; height: 2px; background: var(--gray-200); }
+    
+    /* RoadMap table */
+    .roadmap-wrap { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: auto; margin-bottom: 28px; }
+    .roadmap-table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+    .roadmap-table th { background: #1e3a5f; color: white; padding: 9px 10px; text-align: center; font-size: .8rem; white-space: nowrap; }
+    .roadmap-table td { padding: 8px 10px; border-bottom: 1px solid var(--gray-200); font-size: .82rem; vertical-align: middle; }
+    .roadmap-table tr:hover td { background: var(--gray-light); }
+    .month-cell { text-align: center; min-width: 80px; }
+    .milestone { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+    .milestone.delivered { background: var(--green-light); color: var(--green-dark); border: 1px solid #bbf7d0; }
+    .milestone.waiting { background: var(--purple-light); color: var(--purple-dark); border: 1px solid #e9d5ff; }
+    .milestone.pending { background: var(--orange-light); color: var(--orange-dark); border: 1px solid #fed7aa; }
+    .milestone.blocked { background: var(--red-light); color: var(--red); border: 1px solid #fecaca; font-size: .7rem; }
+    
+    /* Client sections */
+    .client-section { background: white; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 20px; overflow: hidden; }
+    .client-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-bottom: 1px solid var(--gray-200); }
+    .client-header h2 { font-size: 1.1rem; font-weight: 700; color: #1e3a5f; }
+    .client-stats { display: flex; gap: 6px; }
+    .stat-badge { padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 600; }
+    .stat-total { background: #e0f2fe; color: #0369a1; }
+    .stat-cerrado { background: var(--green-light); color: var(--green-dark); }
+    .stat-abierto { background: #fff7ed; color: var(--orange-dark); }
+    
+    .progress-bar-wrap { padding: 10px 20px; background: #f8fafc; border-bottom: 1px solid var(--gray-200); }
+    .progress-label { font-size: .78rem; color: var(--text-muted); margin-bottom: 5px; }
+    .progress-bar { height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--green-dark)); border-radius: 4px; transition: width .3s; }
+    
+    .table-wrap { overflow-x: auto; }
+    .items-table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    .items-table th { background: #374151; color: white; padding: 8px 10px; text-align: left; font-size: .78rem; white-space: nowrap; }
+    .items-table td { padding: 7px 10px; border-bottom: 1px solid var(--gray-200); font-size: .8rem; vertical-align: top; }
+    .items-table tr:hover td { background: #f9fafb; }
+    .items-table tr.row-cerrado td { opacity: .65; }
+    .items-table tr.row-cerrado { background: #f9fafb; }
+    .nombre-col { max-width: 300px; }
+    .fecha-col { white-space: nowrap; }
+    .prio-col { text-align: center; }
+    .comment-col { max-width: 250px; font-size: .75rem; }
+    
+    /* Badges */
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+    .badge-cerrado { background: var(--green-light); color: var(--green-dark); border: 1px solid #bbf7d0; }
+    .badge-abierto { background: #fff7ed; color: var(--orange-dark); border: 1px solid #fed7aa; }
+    .badge-qa { background: var(--purple-light); color: var(--purple-dark); border: 1px solid #e9d5ff; }
+    .badge-version { background: var(--blue-light); color: var(--blue-dark); border: 1px solid #bfdbfe; }
+    .badge-comp { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    .badge-otro { background: #f3f4f6; color: #374151; }
+    .tag-cliente { background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+    
+    /* Jira link */
+    .jira-link { color: var(--blue); font-size: .75rem; text-decoration: none; font-family: monospace; }
+    .jira-link:hover { text-decoration: underline; }
+    
+    /* Comments */
+    .comment-dimmo { margin-bottom: 4px; color: #4b5563; }
+    .comment-dit { color: #1d4ed8; }
+    
+    /* Legend */
+    .legend { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 20px; margin-bottom: 24px; }
+    .legend h3 { font-size: .9rem; font-weight: 700; margin-bottom: 10px; color: #374151; }
+    .legend-items { display: flex; gap: 12px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: .8rem; color: #4b5563; }
+    
+    /* Note box */
+    .note-box { border-left: 4px solid var(--orange); background: var(--orange-light); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 8px 0; font-size: .78rem; color: #7c2d12; }
+    
+    footer { background: #1e3a5f; color: rgba(255,255,255,.7); text-align: center; padding: 16px; font-size: .82rem; margin-top: 32px; }
+    footer strong { color: white; }
+    
+    @media print {
+      nav.client-nav { display: none; }
+      .client-section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📋 ROADMAP — Seguimiento Delivery Manager</h1>
+  <p>Visión consolidada del avance de entregas por cliente · Año 2026</p>
+  <div class="header-meta">
+    <span>📅 Generado el: 16 de junio de 2026</span>
+    <span>👥 Clientes activos: 8</span>
+    <span>📊 Total ítems: 80</span>
+  </div>
+</header>
+
+<nav class="client-nav">
+  <a href="#roadmap">📅 RoadMap</a>
+  <a href="#client-hidalgo">🏛️ Hidalgo</a><a href="#client-sonora">🌵 Sonora</a><a href="#client-colima">🌋 Colima</a><a href="#client-zacatecas">⛏️ Zacatecas</a><a href="#client-quintana-roo">🌴 Quintana Roo</a><a href="#client-jalisco">🎭 Jalisco</a><a href="#client-guanajuato">🦁 Guanajuato</a><a href="#client-baja-california">🌊 Baja California</a>
+</nav>
+
+<div class="main">
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi-card blue">
+      <div class="kpi-value">8</div>
+      <div class="kpi-label">Clientes Activos</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-value">17</div>
+      <div class="kpi-label">Ítems Cerrados / Entregados</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-value">63</div>
+      <div class="kpi-label">Ítems Abiertos / En Progreso</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-value">80</div>
+      <div class="kpi-label">Total de Requerimientos</div>
+    </div>
+    <div class="kpi-card gray">
+      <div class="kpi-value">21%</div>
+      <div class="kpi-label">Porcentaje Completado</div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <h3>📌 Leyenda de colores</h3>
+    <div class="legend-items">
+      <div class="legend-item"><span class="badge badge-cerrado">✓ Cerrado</span> Entregado al cliente</div>
+      <div class="legend-item"><span class="badge badge-abierto">● Abierto</span> En desarrollo o pendiente</div>
+      <div class="legend-item"><span class="badge badge-qa">🔬 En QA</span> En pruebas de calidad</div>
+      <div class="legend-item"><span class="badge badge-version">V X.X</span> Versión del software</div>
+      <div class="legend-item"><span class="badge badge-comp">COMPONENTE</span> Módulo del sistema</div>
+      <div class="legend-item"><span class="milestone waiting">Espera QA</span> En cola de pruebas</div>
+      <div class="legend-item"><span class="milestone delivered">Fecha</span> Compromiso de entrega</div>
+    </div>
+  </div>
+
+  <!-- RoadMap -->
+  <div class="section-title" id="roadmap">📅 Calendario de Entregas 2026</div>
+  <div class="roadmap-wrap">
+    <table class="roadmap-table">
+      <thead>
+        <tr>
+          <th>Entregable</th>
+          <th>Cliente</th>
+          <th>Componente</th>
+          <th>Versión</th>
+          <th>Ene</th><th>Feb</th><th>Mar</th><th>Abr</th>
+          <th>May</th><th>Jun</th><th>Jul</th><th>Ago</th>
+          <th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th>
+          <th>Año</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td><strong>Actaulización de Colonias</strong></td>
+        <td><span class="tag-cliente">Sonora</span></td>
+        <td><span class="badge badge-comp">CARTOGRAFIA</span></td>
+        <td><span class="badge badge-version">-</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      <tr>
+        <td><strong>Versión 4,7 Son.</strong></td>
+        <td><span class="tag-cliente">Sonora</span></td>
+        <td><span class="badge badge-comp">CADW</span></td>
+        <td><span class="badge badge-version">V 4.7 </span></td>
+        <td class="month-cell"></td><td class="month-cell"><span class="milestone blocked">Definada hasta cerrar la carto</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      <tr>
+        <td><strong>Versión 4,8 Hgo.</strong></td>
+        <td><span class="tag-cliente">Hidalgo</span></td>
+        <td><span class="badge badge-comp">CADW</span></td>
+        <td><span class="badge badge-version">V 4.8</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"><span class="milestone delivered">28/May/2026</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      <tr>
+        <td><strong>Versión 4,8 Hgo.</strong></td>
+        <td><span class="tag-cliente">Sonora</span></td>
+        <td><span class="badge badge-comp">CADW</span></td>
+        <td><span class="badge badge-version">V 4.8</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"><span class="milestone delivered">28/May/2026</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Version 4,9 Hgo.</strong></td>
+        <td><span class="tag-cliente">Hidalgo, Sonora</span></td>
+        <td><span class="badge badge-comp">CADW</span></td>
+        <td><span class="badge badge-version">V 4.9</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"><span class="milestone delivered">06/Jul/2026</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      <tr>
+        <td><strong>Actualización de Cartografia</strong></td>
+        <td><span class="tag-cliente">Hidalgo</span></td>
+        <td><span class="badge badge-comp">CARTOGRAFIA</span></td>
+        <td><span class="badge badge-version">-</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"><span class="milestone delivered">05/Jun/2026</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      <tr>
+        <td><strong>Mejoras Nuevo 089</strong></td>
+        <td><span class="tag-cliente">Jalisco</span></td>
+        <td><span class="badge badge-comp">Nuevo 089</span></td>
+        <td><span class="badge badge-version">V 5,4</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"><span class="milestone delivered">09/Jun/2026</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      <tr>
+        <td><strong>Actualización de versión 4,9 a 5,4 </strong></td>
+        <td><span class="tag-cliente">Quintana Roo</span></td>
+        <td><span class="badge badge-comp">CAD SAIMON</span></td>
+        <td><span class="badge badge-version">V 5,4</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"><span class="milestone delivered">06/Jul/2026</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      <tr>
+        <td><strong>22 Fixes post liberación Jal.</strong></td>
+        <td><span class="tag-cliente">Jalisco</span></td>
+        <td><span class="badge badge-comp">CAD SAIMON</span></td>
+        <td><span class="badge badge-version">V 5,4</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"><span class="milestone waiting">Espera de Estimación de QA</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      <tr>
+        <td><strong>Concidicional GTO para funcionar CAD saimon</strong></td>
+        <td><span class="tag-cliente">Guanajuato</span></td>
+        <td><span class="badge badge-comp">CADW</span></td>
+        <td><span class="badge badge-version">V 4,3</span></td>
+        <td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"><span class="milestone waiting">Espera de Estimación de QA</span></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td><td class="month-cell"></td>
+        <td>2026</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Client sections -->
+  <div class="section-title">👥 Detalle por Cliente</div>
+  
+    <div class="client-section" id="client-hidalgo">
+      <div class="client-header">
+        <h2>🏛️ Hidalgo</h2>
+        <div class="client-stats">
+          <span class="stat-badge stat-total">20 ítems</span>
+          <span class="stat-badge stat-cerrado">3 cerrados</span>
+          <span class="stat-badge stat-abierto">17 abiertos</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Progreso: 15% completado</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:15%"></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Estatus</th>
+              <th>Versión</th>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>JIRA</th>
+              <th>Prioridad</th>
+              <th>Fecha Compromiso</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td><span class="badge badge-version">4.7</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">En la funcionalidad de “Asociar incidentes”, el folio padre debe heredar automáticamente notas e involucrados de los folios hijos. Actualmente ya tiene las notas, faltaria asociar los involucrados. y que al desasociar el folio hijo también se desasocie los involucrados .</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-2147" target="_blank" class="jira-link">SYDED-2147</a></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col">Liberación Martes 28 de mayo 00:00</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Versión 4,7, veo que xisten varios cambios que podemos comprometer con el cliente te dejo el enlace para que los visualices y los puedas ir comprometiendo . https://seguritechdeva.atlassian.net/projects/SYDED/versions/12261/tab/release-report-all-issues</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td><span class="badge badge-version">4.8</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Asignación de Cámaras de Video-Vigilancia</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-4408" target="_blank" class="jira-link">SYDED-4408</a></td>
+            <td class="prio-col">2</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td><span class="badge badge-version">4.8</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Agregar opcional de Lineas de Acción y Resultados</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-9448" target="_blank" class="jira-link">SYDED-9448</a></td>
+            <td class="prio-col">3</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4,9</span></td>
+            <td><span class="badge badge-comp">TELEFONIA</span></td>
+            <td class="nombre-col">Creación de nueva blacklist</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-11408" target="_blank" class="jira-link">SYDED-11408</a></td>
+            <td class="prio-col">2</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Carlos validará fecha al ser tecnologia distinta</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4,9</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Intrado</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-18324" target="_blank" class="jira-link">SYDED-18324</a></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Se cancela desarrollo de parte de MTTO. , DM avisa por medio de chat el 11-06-26</div><div class="comment-dit"><strong>DIT:</strong> 0.1</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4,9</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Sustitución de unidades virtuales de despacho por reales</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-2151" target="_blank" class="jira-link">SYDED-2151</a></td>
+            <td class="prio-col">4</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dit"><strong>DIT:</strong> 0.1</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4,9</span></td>
+            <td><span class="badge badge-comp">SARO</span></td>
+            <td class="nombre-col">Obtener descriptivos sin marca de agua</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-10732" target="_blank" class="jira-link">SYDED-10732</a></td>
+            <td class="prio-col">5</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Carlos validará fecha al ser tecnologia distinta</div><div class="comment-dit"><strong>DIT:</strong> Pendiente de Pruebas, liberar una vez que se terminen las pruebas</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Cambio de fecha en consultar reporte del incidente.</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-7964" target="_blank" class="jira-link">SYDED-7964</a></td>
+            <td class="prio-col">3</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CARTO</span></td>
+            <td class="nombre-col">Colonias repetidas dentro de aplicativo CAD</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-17743" target="_blank" class="jira-link">SYDED-17743</a></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Se Realiza la validación del equipo Dev Carto (colonias mencionadas así aparecen en las diferentes fuentes consultadas) se manda nuevamente a validación por parte de L1</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">CC223 Blacklist Llamadas</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-109" target="_blank" class="jira-link">SYDED-109</a></td>
+            <td class="prio-col">6</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Visualización de folios para perfil Monitorista</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-3999" target="_blank" class="jira-link">SYDED-3999</a></td>
+            <td class="prio-col">7</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Modificar incidentes con estatus de cerrado</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-1676" target="_blank" class="jira-link">SYDED-1676</a></td>
+            <td class="prio-col">8</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Modificación panel de monitoreo de llamadas</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-7431" target="_blank" class="jira-link">SYDED-7431</a></td>
+            <td class="prio-col">9</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Actualización de NOTAS del CAD W</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-5404" target="_blank" class="jira-link">SYDED-5404</a></td>
+            <td class="prio-col">10</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Agregar información a descriptivo SARO</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-8153" target="_blank" class="jira-link">SYDED-8153</a></td>
+            <td class="prio-col">11</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">El chat debe de guardar historico</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-2152" target="_blank" class="jira-link">SYDED-2152</a></td>
+            <td class="prio-col">12</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Número telefónico 0000000000 en plataforma CAD.</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-10658" target="_blank" class="jira-link">SYDED-10658</a></td>
+            <td class="prio-col">13</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Tiempo de trabajo de los monitoristas</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-2153" target="_blank" class="jira-link">SYDED-2153</a></td>
+            <td class="prio-col">14</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Incluir Lenguaje de señas</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-1673" target="_blank" class="jira-link">SYDED-1673</a></td>
+            <td class="prio-col">15</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Traductor de audio en otro idioma</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-1674" target="_blank" class="jira-link">SYDED-1674</a></td>
+            <td class="prio-col">16</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="client-section" id="client-sonora">
+      <div class="client-header">
+        <h2>🌵 Sonora</h2>
+        <div class="client-stats">
+          <span class="stat-badge stat-total">10 ítems</span>
+          <span class="stat-badge stat-cerrado">0 cerrados</span>
+          <span class="stat-badge stat-abierto">10 abiertos</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Progreso: 0% completado</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Estatus</th>
+              <th>Versión</th>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>JIRA</th>
+              <th>Prioridad</th>
+              <th>Fecha Compromiso</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4.8</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">ANA-FO-CC-02_CC02 Configuracion de descarga grabaciones de llamadas</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-86" target="_blank" class="jira-link">SYDED-86</a></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> CArlos confirmará si sale en la próxima liberación</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4.8</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">ANA-FO-CC-003 Marcador de cámaras activas</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-10100" target="_blank" class="jira-link">SYDED-10100</a></td>
+            <td class="prio-col">2</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> CArlos confirmará si sale en la próxima liberación</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4,9</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">ANA-FO-CC-42 Generación Manual de Nota por Tipificación Activa en Incidentes</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-95" target="_blank" class="jira-link">SYDED-95</a></td>
+            <td class="prio-col">3</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dit"><strong>DIT:</strong> 0.4</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4,9</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">ANA-FO-CC-40 Visualización de información en el popover de la unidad con GPS</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-33" target="_blank" class="jira-link">SYDED-33</a></td>
+            <td class="prio-col">4</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dit"><strong>DIT:</strong> 0.1</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">ANA-FO-CC-37 Antecedentes de Involucrados</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-125" target="_blank" class="jira-link">SYDED-125</a></td>
+            <td class="prio-col">5</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">ANA-FO-CC-41 Identificación de Unidades con Personal Operativo con App Corporaciones</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-31" target="_blank" class="jira-link">SYDED-31</a></td>
+            <td class="prio-col">6</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4.7</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">CAD W SON - Petición de cliente Modificación de Reporte de PDF</td>
+            <td><span class="badge badge-comp">SYDED-8277</span></td>
+            <td class="prio-col">7</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Pendiente Pruebas de regresion.</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4.7</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">CAD W SONORA - Ordenar alfabéticamente  incidentes de catálogo de emergencia. (MAN-1155)</td>
+            <td><span class="badge badge-comp">SYDED-2428</span></td>
+            <td class="prio-col">8</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Pendiente Pruebas de regresion</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">4.7</span></td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">SON CAD-W/SUPERVISOR/GIS - En la capa de "Arco" y en la de "Poste de cámara" no se visualiza un checkbox para ocultar cada registro en el mapa</td>
+            <td><span class="badge badge-comp">SYDED-757</span></td>
+            <td class="prio-col">9</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Pendiente Pruebas de regresion</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">ANA-FO-CC-38 Registrar información de llamada recurrente y folio complementado dentro de notas del usuario</td>
+            <td><span class="badge badge-comp">SYDED-64</span></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Espera de firma del control de cambios</div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="client-section" id="client-colima">
+      <div class="client-header">
+        <h2>🌋 Colima</h2>
+        <div class="client-stats">
+          <span class="stat-badge stat-total">7 ítems</span>
+          <span class="stat-badge stat-cerrado">4 cerrados</span>
+          <span class="stat-badge stat-abierto">3 abiertos</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Progreso: 57% completado</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:57%"></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Estatus</th>
+              <th>Versión</th>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>JIRA</th>
+              <th>Prioridad</th>
+              <th>Fecha Compromiso</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Bitácora de usuarios, está filtrando sobre los resultados que tiene el front, se requiere realizar una mejora que permita ver todos los usuarios, ya que el uso que tiene por parte del 911 era validar todos los usuarios activos y no activos en el sistema.</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-12376" target="_blank" class="jira-link">SYDED-12376</a></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Espera de validación de inplant, Se aplico el cambio de configuración</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Asignar etapas en las unidades.
+
+al tratar de recorrer las etapas algunas ocasiones no permite cambiar el estatus de la unidad.</td>
+            <td>—</td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Temas de Performances con la nueva infraestructura deberia de correguirse</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">al dar clic y entró una llamada y al dar complementar y seleccionan el folio de completar información y debería de abrir el incidente, pero se realizaron pruebas con el operador quisieron complementar incidente y parecía que no sucedía nada.</td>
+            <td>—</td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Sin reporte al moemento esto ya esta cerrado</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">2 Semanas App IOS App 911</td>
+            <td>—</td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Deplegada en Producción, en pruebas de cliente</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Nuevo 089 para ambientar en QA la nueva versión.
+Se coordina lo siguiente:
+ambientar la nueva versión QA
+Capacitar en la nueva versión a Lic. Martha Gonzalez.
+Se asignará por parte de lic. Matha Gonzalez el personal a capacitar en la nueva versión.
+Se definirá su periodo de pruebas de la nueva versión.
+Una vez de la conclusión se realizará la liberación de la nueva versión.</td>
+            <td>—</td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Se comprometió por Minuta fecha tentativa para despliegue a productivo el 15 de Junio</div><div class="comment-dit"><strong>DIT:</strong> -09/06/2026: Se tuvo demo con cliente y el ing. pedro esta en espera de recibir la lista de observaciones de cliente</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Solicitud catálogos de marcas y modelos de vehículos más actual para el sistema CAD</td>
+            <td><span class="badge badge-comp">SYDED-20067</span></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col">15/Jun/2026</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Solicitando de su apoyo, nos proporcionen un excel con los catálogos de marcas y modelos de vehículos más actual para el sistema CAD que se tenga, para añadirlo en el apartado de Vehículo involucrados
+
+Por favor, se espera que el cliente complemente este catalogo de vehículos para actualizar el sistema CAD en Colima, por lo tanto, considerar que ese listado del catálogo se va a cargar al sistema CAD una vez que se valide con cliente.</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Revisión de configuración de RAPID SoS con CAD </td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-20062" target="_blank" class="jira-link">SYDED-20062</a></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="client-section" id="client-zacatecas">
+      <div class="client-header">
+        <h2>⛏️ Zacatecas</h2>
+        <div class="client-stats">
+          <span class="stat-badge stat-total">9 ítems</span>
+          <span class="stat-badge stat-cerrado">0 cerrados</span>
+          <span class="stat-badge stat-abierto">9 abiertos</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Progreso: 0% completado</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Estatus</th>
+              <th>Versión</th>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>JIRA</th>
+              <th>Prioridad</th>
+              <th>Fecha Compromiso</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Dimensionamiento Zacatecas</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/ARDAP-112285" target="_blank" class="jira-link">ARDAP-112285</a></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col">03/May/2026</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Urgente y Activo</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">SDC-W Zacatecas // Actualización de colonias en SDC</td>
+            <td><span class="badge badge-comp">SYDED-14594</span></td>
+            <td class="prio-col">3</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Suspendido por falta de contrato</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">BI</span></td>
+            <td class="nombre-col">SDC-W // BI // reporte de llamadas</td>
+            <td><span class="badge badge-comp">SYDED-13986</span></td>
+            <td class="prio-col">4</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Suspendido por falta de contrato</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">SARO</span></td>
+            <td class="nombre-col">SARO ZAC v5.0.95_3</td>
+            <td><span class="badge badge-comp">SYDED-13965</span></td>
+            <td class="prio-col">5</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Suspendido por falta de contrato</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">Integración a aplicación ZAPP con SDCW</td>
+            <td><span class="badge badge-comp">SYDED-11171</span></td>
+            <td class="prio-col">10</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Suspendido por falta de contrato</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">APP</span></td>
+            <td class="nombre-col">Revisión APP 911 iOS, no funciona el App</td>
+            <td><span class="badge badge-comp">SYDED-14477</span></td>
+            <td class="prio-col">6</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Suspendido por falta de contrato</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">TELEFONIA</span></td>
+            <td class="nombre-col">SDC-W//ZACATECAS// Telefonía, revisar reporte de llamadas</td>
+            <td><span class="badge badge-comp">SYDED-14847</span></td>
+            <td class="prio-col">7</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Suspendido por falta de contrato</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col">SDC-W // Catálogo de primeros auxilios</td>
+            <td><span class="badge badge-comp">SYDED-12095</span></td>
+            <td class="prio-col">8</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Suspendido por falta de contrato</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD</span></td>
+            <td class="nombre-col"></td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-18252" target="_blank" class="jira-link">SYDED-18252</a></td>
+            <td class="prio-col">2</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Suspendido por falta de contrato</div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="client-section" id="client-quintana-roo">
+      <div class="client-header">
+        <h2>🌴 Quintana Roo</h2>
+        <div class="client-stats">
+          <span class="stat-badge stat-total">1 ítems</span>
+          <span class="stat-badge stat-cerrado">0 cerrados</span>
+          <span class="stat-badge stat-abierto">1 abiertos</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Progreso: 0% completado</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Estatus</th>
+              <th>Versión</th>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>JIRA</th>
+              <th>Prioridad</th>
+              <th>Fecha Compromiso</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">5,4</span></td>
+            <td><span class="badge badge-comp">CAD SAIMON</span></td>
+            <td class="nombre-col">Diagnostico de lentitud e intermitencias reportadas en Quintana Roo</td>
+            <td>—</td>
+            <td class="prio-col">Alta</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="client-section" id="client-jalisco">
+      <div class="client-header">
+        <h2>🎭 Jalisco</h2>
+        <div class="client-stats">
+          <span class="stat-badge stat-total">14 ítems</span>
+          <span class="stat-badge stat-cerrado">2 cerrados</span>
+          <span class="stat-badge stat-abierto">12 abiertos</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Progreso: 14% completado</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:14%"></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Estatus</th>
+              <th>Versión</th>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>JIRA</th>
+              <th>Prioridad</th>
+              <th>Fecha Compromiso</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Nuevo 089</span></td>
+            <td class="nombre-col">Integración con portal web para la recepción de denuncias, envio de folio a ciudadano</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-13333" target="_blank" class="jira-link">SYDED-13333</a></td>
+            <td class="prio-col">6</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Nuevo 089</span></td>
+            <td class="nombre-col">Que el descriptivo salga con el nombre del folio nadamás</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/PCENTRAL-305068" target="_blank" class="jira-link">PCENTRAL-305068</a></td>
+            <td class="prio-col">7</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">5,4</span></td>
+            <td><span class="badge badge-comp">Nuevo 089</span></td>
+            <td class="nombre-col">Agregar filtro creados por mi, ya que es importante para ellos saber qué folios y cuantos hicieron al final del día, además de poder darles seguimiento</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-13324" target="_blank" class="jira-link">SYDED-13324</a></td>
+            <td class="prio-col">8</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Nuevo 089</span></td>
+            <td class="nombre-col">Poder pegar una latitud y longitud y que les complete los campos de municipio, colonia, calle, etc</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-13326" target="_blank" class="jira-link">SYDED-13326</a></td>
+            <td class="prio-col">9</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">5,4</span></td>
+            <td><span class="badge badge-comp">Nuevo 089</span></td>
+            <td class="nombre-col">Poder diferenciar un teléfono involucrado de extorsión o fraude en teléfonos involucrados y que el dato salga en el reporte con fines estadísticos</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-13330" target="_blank" class="jira-link">SYDED-13330</a></td>
+            <td class="prio-col">10</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Nuevo 089</span></td>
+            <td class="nombre-col">Es necesario un apartado de temporalidad sin tiempo en especifico donde se plasme que los hecos como venta de droga que se vengen todos los dias a todas horas </td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-13322" target="_blank" class="jira-link">SYDED-13322</a></td>
+            <td class="prio-col">11</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD SAIMON</span></td>
+            <td class="nombre-col">Se requiere un Cierre automático de Incidentes sin atención en un tiempo definido, cliente solicita iniciar con 12 horas desde la creación del incidente contabilizar</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-16687" target="_blank" class="jira-link">SYDED-16687</a></td>
+            <td class="prio-col">12</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Desplegado</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD SAIMON</span></td>
+            <td class="nombre-col">Cuando se cambié la tipificación de un incidente, que el sistema permita restar las corporaciones que ya no sean necesarias en el nuevo tipo de incidente, y se agregue un cierre con motivo de "cambio de motivo".</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-16807" target="_blank" class="jira-link">SYDED-16807</a></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Desplegado con Bug</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">DWH</span></td>
+            <td class="nombre-col">Incidencias reportardas del cliente del DWH</td>
+            <td>—</td>
+            <td class="prio-col">2</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Desplegado</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD SAIMON</span></td>
+            <td class="nombre-col">Raúl Benítez solicita que cuando el operador de 911 esté capturando información en un reporte y lo cierre despacho, el operador pueda seguir complementando información, ya que actualmente, si cierran el reporte en despacho (cuando cierra al menos una corporacion) el operador ya no puede realizar nada (pueda dar clic todavavia en atendido por operador).</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-16652" target="_blank" class="jira-link">SYDED-16652</a></td>
+            <td class="prio-col">3</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD SAIMON</span></td>
+            <td class="nombre-col">Modificar reporte de "Descriptivo de Incidente" en SARO 9-1-1
+        - Ocultar del reporte la seccion:  "Observaciones y sus tiempos"
+        - Ocultar nombre de usaurio y que aparezca el Agente Telefonico (ID_Telefonico)
+        - Ocultar estatus del folio
+        - En la seccion de "Tiempos de atencion de incidente" debe de aparecer la H de Trasmision del incidente (Hora y Fecha          en que tipificaron el incidente)</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-16810" target="_blank" class="jira-link">SYDED-16810</a></td>
+            <td class="prio-col">4</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> En pruebas de Qa</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td><span class="badge badge-version">5,4</span></td>
+            <td><span class="badge badge-comp">CAD SAIMON</span></td>
+            <td class="nombre-col">Cambio de sectorizaion del evento, el cliente menciona que cuando un operador genera un incidente, el incidente guarda de manera automatica la direccion por default (centroide) y al tipificar se asignan las corporaciones por default correspondientes a este sector, sin embargo al cambiar la ubicacion esta no se actualiza de manera automatica para que se asignen las corporaciones al nuevo sector, esto desde el perfil de operador 9-1-1 </td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-16808" target="_blank" class="jira-link">SYDED-16808</a></td>
+            <td class="prio-col">5</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Desplegado</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD SAIMON</span></td>
+            <td class="nombre-col">Desasignación de corporaciones al re tipificar incidentes de bajo impacto en R12</td>
+            <td><a href="https://seguritechdeva.atlassian.net/browse/SYDED-19287" target="_blank" class="jira-link">SYDED-19287</a></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">https://docs.google.com/spreadsheets/d/1D7m57-6EaD2QVZ3asZ7spw9J-vqE3FTHo0MRu6Wg6Cs/edit?pli=1&gid=0#gid=0</td>
+            <td><span class="badge badge-comp">Archivo de observaciones</span></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dit"><strong>DIT:</strong> Lo atiende DIT implementacion</div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="client-section" id="client-guanajuato">
+      <div class="client-header">
+        <h2>🦁 Guanajuato</h2>
+        <div class="client-stats">
+          <span class="stat-badge stat-total">18 ítems</span>
+          <span class="stat-badge stat-cerrado">8 cerrados</span>
+          <span class="stat-badge stat-abierto">10 abiertos</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Progreso: 44% completado</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:44%"></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Estatus</th>
+              <th>Versión</th>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>JIRA</th>
+              <th>Prioridad</th>
+              <th>Fecha Compromiso</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Streaming GTO</span></td>
+            <td class="nombre-col">06.04.2026 Actualización de Streaming de cámaras de GTO en página de la SSP</td>
+            <td><span class="badge badge-comp">SYDED-12454</span></td>
+            <td class="prio-col">2026-01-01 00:00:00</td>
+            <td class="fecha-col">29/May/2026</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> El miércoles 27/may se revisa con desarrollador y scrum la funcionalidad, se hacen algunas observaciones. 
+El viernes 29/may se revisa con desarrollador y sccrum las observaciones la aplicación de las observaciones de la sesión pasada.
+Se pide agilizar los siguientes pasos para poder desplegar la semana que entra (lunes o martes) en producción.
+Se pide apoyo al equipo de Ciberseguridad esta al pendiente de poder canalizar lo que debe de revisar de código o equipo.
+Se compromete con cliente realizar capacitación el lunes 01/Jun, esta capacitación la puede realizar personal de sucursal, con la explicación que ya se hizo en la revisión con desarrollador y scrum.
+Se realiza martes 027jun, Capacitación a personal de C5i a través de personal de IM y L1, Desarrollador apoyo en algunas dudas.
+
+Se autoriza aplicación de RFC para martes 9/jun a las 11am
+
+Se entregó reporte de Evaluación técnica del streaming de las cámaras de Gto, para revsión de C5i con área de Finanzas, nos avisará si es suficiente o requieren algo más
+
+Se aplicó RFC 9/jun, no quedo estable, se degrada el performance con el uso de visualización de las cámaras.
+
+11/jun, Esta más estable, se espera el VoBo del cliente para poder cerrar el ticket de Saimontech y este jira.</div><div class="comment-dit"><strong>DIT:</strong> Se entrego capacitación, por parte de IM y L1
+
+03/06 Por comentarios por DM
+
+Se aplico la ventana hoy 09/06</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Falla en la reproduccion de video de cámaras en la plataforma de Streaming. 10-06-2026</td>
+            <td><span class="badge badge-comp">SYDED-20102</span></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col">No funcionó desde la liberación a producción, se debe resolver a la brevedad posible</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> No carga el flujo de video de las cámaras de la plataforma. Se adjunta checklist de la situación: 
+
+11/jun, Esta más estable, se espera el VoBo del cliente para poder cerrar el ticket de Saimontech y este jira.</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CDD</span></td>
+            <td class="nombre-col">Inconsistencia en persistencia de Delegación y Dictamen en registros múltiples bajo un mismo Folio y por un mismo agente.</td>
+            <td><span class="badge badge-comp">SYDED-15823</span></td>
+            <td class="prio-col">2026-02-01 00:00:00</td>
+            <td class="fecha-col">Antes de termine May, 2026</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Preocupa al cliente la inconsistencia detectada en la versión actual en producción se pase cuando se actualice el sistema , ya que solo cambia en apariencia, la funcionalidad es la misma que la versión actual.
+
+Se aplico RFC lunes 25/may, no funcionó
+Se aplicó hotfix jueves 28/may, en monitoreo de no se presente de nuevo la falla</div><div class="comment-dit"><strong>DIT:</strong> Se libero  2, jueves 28/may 20:00 hrs</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">BI</span></td>
+            <td class="nombre-col">BI - Para cumplimiento Punto 5 de la minuta del 30/abr</td>
+            <td><span class="badge badge-comp">SYDED-16306</span></td>
+            <td class="prio-col">2026-01-02 00:00:00</td>
+            <td class="fecha-col">Antes de termine May, 2026</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Pendiente para cumplir punto en minuta, necesitamos pasar estimado de liberación de la corrección al cliente.
+Se entregó dcto de CC el martes 02/may, para revisión/validación por parte de C5i.</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CAD-W</span></td>
+            <td class="nombre-col">GTO - Punto en Minuta con C4 León y C5i GTO - 29.05.2026</td>
+            <td><span class="badge badge-comp">SYDED-18732</span></td>
+            <td class="prio-col">2026-03-01 00:00:00</td>
+            <td class="fecha-col">02/Jun/2026</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Este análisis es importante para saber si tenemos que realizar algún ajuste en configuración de sistema.
+Se entregó análisis el 02/jun</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CADW</span></td>
+            <td class="nombre-col">Cambios versión de Videollamada para SDC Saimon para GTO</td>
+            <td><span class="badge badge-comp">SYDED-4517</span></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CADW</span></td>
+            <td class="nombre-col">Configurar sala videollamada Saimon GTO QA</td>
+            <td><span class="badge badge-comp">SYDED-17790</span></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CADW</span></td>
+            <td class="nombre-col">Integración datos Saimon en CADos Semáforo C5i GTO </td>
+            <td><span class="badge badge-comp">SYDED-13169</span></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">CADW</span></td>
+            <td class="nombre-col">Mostrar folios emergencia Saimon en Mapa Táctico (4.3h) de GTO</td>
+            <td><span class="badge badge-comp">SYDED-17943</span></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Soporte</span></td>
+            <td class="nombre-col">02.06.2026 Desfase de Folios en las replicas Transversales Gto
+Creado 2 de junio de 2026 a las 16:16</td>
+            <td><span class="badge badge-comp">ARDAP-112477</span></td>
+            <td class="prio-col">2026-04-01 00:00:00</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> El C5i solicita un reporte sobre la situación actual del desfase de las réplicas transversales, ya que este problema se ha presentado con mucha frecuencia en los últimos días. se realizo el analisis de 01/05/2026 a la fecha 02/06/2026.</div><div class="comment-dit"><strong>DIT:</strong> Reportado en Incident Manager</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Soporte</span></td>
+            <td class="nombre-col">Falla con sensor en la plataforma de Telemetría 19.12.2025.
+Creado 19 de diciembre de 2025 a las 9:32
+Actualizado 25 de mayo de 2026 a las 17:59
+Resuelto 22 de diciembre de 2025 a las 17:44</td>
+            <td><span class="badge badge-comp">SYDED-3167</span></td>
+            <td class="prio-col">2026-02-02 00:00:00</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Se reporta en el sitio 61: Casitas 2, el sensor de nivel de Diesel se muestra en algunas veces y en otras ya no se muestra el sensor..</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Soporte</span></td>
+            <td class="nombre-col">29/05/2026 Reportes de SARO no están mostrando el mapa de calor
+Creado 29 de mayo de 2026 a las 23:31</td>
+            <td><span class="badge badge-comp">SYDED-18874</span></td>
+            <td class="prio-col">2026-03-02 00:00:00</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Reportes de SARO no están mostrando el mapa de calor, se sonsutan los reportes incidentes por subtipo y top 10 en el tipo de mapa de Calor en los municipios cabecera y no esta mostrando el semaforo de calor, se estan consultando varios rangos de fechas incluyendo el dia de hoy, se valida que tanto en primarios como secundarios sucede lo mismo, al parecer es en todos los Municipios</div><div class="comment-dit"><strong>DIT:</strong> Repotado por incident manager</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Botones</span></td>
+            <td class="nombre-col">Cambios en reporte de plataforma de Botones GTO PROD 18.02.2026</td>
+            <td><span class="badge badge-comp">SYDED-7641</span></td>
+            <td class="prio-col">2026-01-03 00:00:00</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> C5 solicita cambio en un reporte en la plataforma de botones, en el reporte denominado como: Personas con botón asignado, dentro del modulo de reportes, con los siguientes campos.</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Telemetria</span></td>
+            <td class="nombre-col">Dar de alta alertamientos de MEI Y EATON en el sistema de Telemetria</td>
+            <td><span class="badge badge-comp">SYDED-8879</span></td>
+            <td class="prio-col">2026-03-03 00:00:00</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Agregar al sistema de Telemetria los alertamientos de MEI y EATON
+
+Documento de MEI Y EATON aqui vienen todas las IP´s de todos los equipos instalados</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">04.05.2026 Requerimiento técnico para la sustitución del servidor de BD AVL (IP: 172.18.0.18) – C5i.</td>
+            <td><span class="badge badge-comp">ARDAP-110985</span></td>
+            <td class="prio-col">2026-02-03 00:00:00</td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Se solicitan las especificaciones técnicas necesarias para la adquisición de un nuevo servidor destinado a la Base de Datos de AVL, el cual reemplazará al equipo actual con IP 172.18.0.18 ubicado en las instalaciones del C5i.
+
+Esta sustitución es prioritaria debido a que el equipo actual es una PC de escritorio y se requiere la robustez de un servidor. 
+
+La necesidad se derivó de las incidencias detectadas el pasado fin de semana, cuando se observó que la réplica de la base de datos no estaba actualizada.
+
+ Es indispensable que el nuevo hardware garantice que la réplica contenga la información en tiempo real para asegurar la continuidad de la operación.
+
+Se requiere definir: Memoria RAM, almacenamiento (Disco Duro), procesador, sistema operativo (Windows o Linux), entre otros.
+
+Se reciben las caracteristicas el equipo de BD</div><div class="comment-dit"><strong>DIT:</strong> Se asing a Oscar Uriel</div></td>
+          </tr>
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td><span class="badge badge-comp">Soporte</span></td>
+            <td class="nombre-col">28.05.2026 Inconsistencia en persistencia de Delegación y Dictamen en registros múltiples bajo un mismo Folio y por un mismo agente.</td>
+            <td><span class="badge badge-comp">SYDED-18537</span></td>
+            <td class="prio-col">2026-04-03 00:00:00</td>
+            <td class="fecha-col">Se tendra sesión con cliente lunes 15/06/26</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Se han detectado casos en el módulo de Control de Detenidos donde, bajo un mismo folio de incidente, los registros de detenidos presentan discrepancias de adscripción y contenido. Específicamente, se identificaron detenidos con una delegación distinta a la del incidente y otros registros donde el dictamen difiere de lo registrado en la boleta física del detenido.
+Asi nos encontramos con 7600 registros.
+
+Lo que solicita C5i que se va hacer con estos registros que estan diferentes.
+
+1.- Se van a corregir
+
+2.- Cual de los dos campos se va a corregir Delegacion_Detenido con Delegacion_Incidente
+
+3.- A que le va afectar 
+
+Antes de mover algo de solicita una evaluacion de que puede afectar, una vez que se tenga esa evaluacion tener una sesion con C5i para poder explicar a Flor.</div><div class="comment-dit"><strong>DIT:</strong> Espera de VoBo del Cliente</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">04.06.2026 Cliente esta solicitando agregar dos motivos a reporte de Eficiencia Operativa en BI</td>
+            <td><span class="badge badge-comp">SYDED-19327</span></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col">El cliente necesita enviar información hoy</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Cliente C5i solicita lo siguiente: Por medio de la presente quiero solicitar agregar 2 motivos para el reporte de eficiencia Operativa en MicroStrategy BI, estos motivos se requiere agregar para todos los municipios. Se requiere que el cambio ya esté aplicado para el viernes en la mañana.
+
+Reporte: Eficiencia Operativa
+
+Ruta del reporte: CAD-W>Informes compartidos>REPORTES C5I/MUNICIPALES>C5>EFICICIENCIA OPERATIVA
+
+Se agreguen los siguientes dos motivos: 
+
+ALARMA DE BANCO 
+
+ROBO A TRANSEÚNTE CON VIOLENCIA</div></td>
+          </tr>
+          <tr class="row-cerrado">
+            <td><span class="badge badge-cerrado">✓ Cerrado</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">04.06.2026 Cliente esta solicitando agregar dos motivos a reporte de Eficiencia Operativa</td>
+            <td><span class="badge badge-comp">SYDED-19325</span></td>
+            <td class="prio-col">1</td>
+            <td class="fecha-col">El cliente necesita enviar información hoy</td>
+            <td class="comment-col"><div class="comment-dimmo"><strong>DIMMO:</strong> Cliente C5i solicita lo siguiente: Por medio de la presente quiero solicitar agregar 2 motivos para el reporte de eficiencia Operativa en SARO, estos motivos se requiere agregar para todos los municipios. Se requiere que el cambio ya esté aplicado para el viernes en la mañana.
+
+Reporte: Eficiencia Operativa
+
+Se agreguen los siguientes dos motivos: 
+
+ALARMA DE BANCO 
+
+ROBO A TRANSEÚNTE CON VIOLENCIA</div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="client-section" id="client-baja-california">
+      <div class="client-header">
+        <h2>🌊 Baja California</h2>
+        <div class="client-stats">
+          <span class="stat-badge stat-total">1 ítems</span>
+          <span class="stat-badge stat-cerrado">0 cerrados</span>
+          <span class="stat-badge stat-abierto">1 abiertos</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Progreso: 0% completado</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Estatus</th>
+              <th>Versión</th>
+              <th>Componente</th>
+              <th>Descripción</th>
+              <th>JIRA</th>
+              <th>Prioridad</th>
+              <th>Fecha Compromiso</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          <tr class="">
+            <td><span class="badge badge-abierto">● Abierto</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="nombre-col">Apoyo para generar API u artefacto de migración de información de BD Oracle de Black list de LPR del cliente a un formato TXT para ingestar en Plataforma Genetec</td>
+            <td><span class="badge badge-comp">SYDED-14045</span></td>
+            <td class="prio-col"></td>
+            <td class="fecha-col"></td>
+            <td class="comment-col"><div class="comment-dit"><strong>DIT:</strong> -09/06/2026: Se tuvo demo con cliente y el ing. pedro esta en espera de recibir la lista de observaciones de cliente</div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+</div>
+
+<footer>
+  <strong>ROADMAP — Seguimiento Delivery Manager</strong> · Seguritech Sistemas · 
+  Generado automáticamente el <strong>16 de junio de 2026</strong> · 
+  Fuente: Google Sheet "Seguimiento Delivery Manager"
+</footer>
+
+</body>
+</html>
